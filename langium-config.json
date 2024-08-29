@@ -1,0 +1,28 @@
+{
+  "projectName": "Eraser",
+  "languages": [
+    {
+      "id": "eraser",
+      "grammar": "src/language/eraser/eraser.langium",
+      "fileExtensions": [".eraserdiagram"],
+      "textMate": {
+        "out": "syntaxes/eraser.tmLanguage.json"
+      },
+      "monarch": {
+        "out": "src/syntaxes/eraser.monarch.ts"
+      }
+    },
+    {
+      "id": "erasererd",
+      "grammar": "src/language/erd/erd.langium",
+      "fileExtensions": [".erasererd"],
+      "textMate": {
+        "out": "syntaxes/erasererd.tmLanguage.json"
+      },
+      "monarch": {
+        "out": "src/syntaxes/erasererd.monarch.ts"
+      }
+    }
+  ],
+  "out": "src/language/generated"
+}

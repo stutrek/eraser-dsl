@@ -1,0 +1,33 @@
+/* stylelint-disable selector-max-id */
+/* stylelint-disable color-named */
+html,
+body {
+  margin: 0;
+  background: rgb(33, 33, 33);
+  color: white;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+    'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+h1 {
+  text-align: center;
+}
+footer {
+  margin-bottom: 0.5rem;
+  color: #444;
+  font-size: 1.2rem;
+  text-align: center;
+}
+a:link {
+  color: gray;
+}
+a:visited {
+  color: lightskyblue;
+}
+/* for monaco */
+.wrapper {
+  padding: 0 5%;
+}
+#monaco-editor-root,
+#monaco-editor-root-2 {
+  height: calc(100vh - 7.5rem - 70px);
+}
