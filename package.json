@@ -73,6 +73,17 @@
           ".eraserdiagram"
         ],
         "configuration": "./language-configuration.json"
+      },
+      {
+        "id": "erasererd",
+        "aliases": [
+          "Erasererd",
+          "erasererd"
+        ],
+        "extensions": [
+          ".erasererd"
+        ],
+        "configuration": "./language-configuration.json"
       }
     ],
     "grammars": [
@@ -80,6 +91,11 @@
         "language": "eraser",
         "scopeName": "source.eraser",
         "path": "syntaxes/eraser.tmLanguage.json"
+      },
+      {
+        "language": "eraser",
+        "scopeName": "source.eraser",
+        "path": "syntaxes/erasererd.tmLanguage.json"
       }
     ]
   },

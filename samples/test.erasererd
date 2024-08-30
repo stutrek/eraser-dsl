@@ -1,0 +1,8 @@
+existingTable {
+  field1 testType
+  field2 testType
+}
+
+existingTable.field1 > existingTable.field2
+
+adhocTable.field3 > adhocTable.field4

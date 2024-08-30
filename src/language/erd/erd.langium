@@ -13,20 +13,19 @@ Setting:
     key=ID ':' value=ID|EscapedText;
 
 ErdConnection:
-    table=ErdConnectionTableName ('.' field=ErdConnectionFieldName)? connectionType=ConnectionToken (to+=ErdConnectionTarget) (Newline | EOF);
+    from=ErdReference connectionType=ConnectionToken to=ErdReference ','? (Newline | EOF);
 
-ErdConnectionTarget:
-    table=ErdConnectionTableName ('.' field=ErdConnectionFieldName)? ','?;
+ErdReference: 
+    table=ErdTableReference ('.' field=ErdFieldReference)?;
 
-ErdConnectionFieldName:
-    field=[FieldConnectionItem:ID];
-
-ErdConnectionTableName:
+ErdTableReference: 
     table=[TableConnectionItem:ID];
 
-type TableConnectionItem = TableDeclaration | ErdConnection | ErdConnectionTarget;
-type FieldConnectionItem = FieldDefinition | ErdConnectionFieldName;
+ErdFieldReference: 
+    field=[FieldConnectionItem:ID];
 
+type TableConnectionItem = TableDeclaration | ErdTableReference;
+type FieldConnectionItem = FieldDefinition | ErdFieldReference;
 
 hidden terminal WS: /[ \t]+/;
 
@@ -34,7 +33,7 @@ hidden terminal ML_COMMENT: /\/\*[\s\S]*?\*\//;
 hidden terminal SL_COMMENT: /(\/\/)[^\n\r]*/;
 hidden terminal SL_COMMENT_HASH: /#[^\n\r]*/;
 
-terminal ID: /([^:{}[\]"<>,\n -]+[^:{}[\]"<>,\n .]{0,1})+[^:{}[\]"<>,\n .-]|[^:{}[\]"<>,\n .-]{1,1}/;
+terminal ID: /\w+/;
 terminal ConnectionToken: /[<>-]+/;
 terminal EscapedText: /"[^"]+"/;
-terminal Newline: /\n/;
+terminal Newline: /\r?\n/;
