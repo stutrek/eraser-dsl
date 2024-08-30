@@ -9,8 +9,7 @@ import type {
 } from 'langium/lsp';
 import { EraserErdGeneratedModule, EraserGeneratedSharedModule } from '../generated/module.js';
 import { ErdNameProvider } from './erd-name-provider.js';
-import { ErdScopeProvider } from './erd-scope.js';
-import { ErdReferences } from './erd-references.js';
+import { ErdScopeComputation, ErdScopeProvider } from './erd-scope.js';
 
 /**
  * Declaration of custom services - add your own service classes here.
@@ -22,7 +21,6 @@ export type ErdAddedServices = {
   references: {
     ScopeProvider: ErdScopeProvider;
     NameProvider: ErdNameProvider;
-    References: ErdReferences;
   };
 };
 
@@ -40,8 +38,9 @@ export type ErdServices = LangiumServices & ErdAddedServices;
 export const ErdModule: Module<ErdServices, PartialLangiumServices & ErdAddedServices> = {
   references: {
     ScopeProvider: (services) => new ErdScopeProvider(services),
-    NameProvider: () => new ErdNameProvider(),
-    References: (services) => new ErdReferences(services),
+    ScopeComputation: (services) => new ErdScopeComputation(services),
+    NameProvider: () => new ErdNameProvider()
+    // References: (services) => new ErdReferences(services),
   },
 };
 

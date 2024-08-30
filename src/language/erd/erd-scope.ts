@@ -1,22 +1,25 @@
 import {
   ReferenceInfo,
   Scope,
-  AstUtils,
-  Stream,
-  AstNodeDescription,
-  stream,
   DefaultScopeProvider,
   EMPTY_SCOPE,
+  DefaultScopeComputation,
+  LangiumDocument,
+  PrecomputedScopes,
+  AstNode,
+  AstUtils,
 } from 'langium';
-import { ErdConnection, ErdConnectionTarget, isFieldDefinition } from '../generated/ast.js';
+import { isErdFieldReference, isErdTableReference, isTableDeclaration } from '../generated/ast.js';
 
 export class ErdScopeProvider extends DefaultScopeProvider {
   getScope(context: ReferenceInfo): Scope {
-    if (context.property === 'field') {
-      const container = context.container.$container as ErdConnectionTarget | ErdConnection;
-      const table = container.ref.table;
-      if (table) {
+    if (context.property === 'field' && isErdFieldReference(context.container)) {
+      const container = context.container.$container;
+      const table = container.table.table.ref;
+      if (isTableDeclaration(table)) {
         return this.createScopeForNodes(table.fields);
+      } else if (isErdTableReference(table)) {
+        return this.createScopeForNodes([context.container]);
       }
       return EMPTY_SCOPE;
     }
@@ -46,5 +49,17 @@ export class ErdScopeProvider extends DefaultScopeProvider {
     //   result = this.createScope(scopes[i], result);
     // }
     // return result;
+  }
+}
+
+export class ErdScopeComputation extends DefaultScopeComputation {
+  protected override processNode(node: AstNode, document: LangiumDocument, scopes: PrecomputedScopes): void {
+    const container = AstUtils.findRootNode(node);
+    if (container) {
+      const name = this.nameProvider.getName(node);
+      if (name) {
+        scopes.add(container, this.descriptions.createDescription(node, name, document));
+      }
+    }
   }
 }

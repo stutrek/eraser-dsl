@@ -39,7 +39,10 @@ function startLanguageClient(context: vscode.ExtensionContext): LanguageClient {
 
   // Options to control the language client
   const clientOptions: LanguageClientOptions = {
-    documentSelector: [{ scheme: 'file', language: 'eraser' }],
+    documentSelector: [
+      { scheme: 'file', language: 'eraser' },
+      { scheme: 'file', language: 'erasererd' }
+    ],
   };
 
   // Create the language client and start the client.
